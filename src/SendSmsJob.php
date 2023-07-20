@@ -20,6 +20,7 @@ class SendSmsJob
         $json = null;
         // check if we are in laravel app
         try {
+
             $app = app()->version();
             //we are in laravel app
             $datas = [
@@ -32,13 +33,14 @@ class SendSmsJob
                 $sms->getUsername(),
                 $sms->getPassword()
             )
-                ->retry(10, 1000)
+                ->retry(5, 1000)
                 ->asForm()
-                ->post($sms->getApiUrl(), $datas);
+                ->post($sms->getApiUrlQuery(), $datas);
             if ($response->ok()) {
                 $json = $response->json();
             }
         } catch (\Throwable $th) {
+
             //we are not in laravel app
             $client = new Client();
             $res = $client->request('POST', $sms->getApiUrlQuery(), [

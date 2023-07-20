@@ -57,6 +57,9 @@ That code works well, however it does call some static parameters such as sender
 
 ```php
 
+namespace App\Services;
+
+use Aimedidierm\IntouchSms\SmsAbstract;
 
 class Sms extends SmsAbstract
 {
